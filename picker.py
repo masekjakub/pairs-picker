@@ -1,7 +1,7 @@
 import os
 import random
 
-def import_items(file_path):
+def import_items(file_path) -> set:
     with open(file_path, 'r') as file:
         items = file.read().splitlines()
     return items
@@ -16,11 +16,16 @@ def pick():
         notPicked = origItems.copy()
         for item in items:
             available = notPicked.copy()
-            available.remove(item)
+
+            if item in available:
+                available.remove(item)
+
             if len(available) == 1 and available[0] == item:
                 break
+
             picked = random.choice(available)
             pairs.append([item, picked])
+            notPicked.remove(picked)
         isPaired = True
     return pairs
 
