@@ -9,19 +9,22 @@ def import_items(file_path):
 def pick():
     origItems = import_items('/home/masek/Projects/pairs-picker/items.txt')
     isPaired = False
+    
     while not isPaired:
+        pairs = []
         items = origItems.copy()
-        notPaired = origItems.copy()
+        notPicked = origItems.copy()
         for item in items:
-            picked = random.choice(notPaired)
-            while picked is item:
-                if len(notPaired) == 1:
-                    isPaired = False
-                    break
-                picked = random.choice(notPaired)
-            print(f"{item} -> {picked}")
-            notPaired.remove(picked)
-            isPaired = True
+            available = notPicked.copy()
+            available.remove(item)
+            if len(available) == 1 and available[0] == item:
+                break
+            picked = random.choice(available)
+            pairs.append([item, picked])
+        isPaired = True
+    return pairs
 
 if __name__ == "__main__":
-    pick()
+    pairs = pick()
+    for pair in pairs:
+        print(f"{pair[0]} -> {pair[1]}")
