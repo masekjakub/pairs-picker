@@ -17,9 +17,9 @@ def pick():
             while picked is item:
                 if len(notPaired) == 1:
                     isPaired = False
-                    break;
+                    break
                 picked = random.choice(notPaired)
-            print(f"{item} - {picked}")
+            print(f"{item} -> {picked}")
             notPaired.remove(picked)
             isPaired = True
 
